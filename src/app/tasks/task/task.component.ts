@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { type Task } from './task.model';
 import { CardComponent } from "../../shared/card/card.component";
+import { TaskService } from '../tasks.service';
 
 
 
@@ -18,9 +19,12 @@ import { CardComponent } from "../../shared/card/card.component";
 })
 export class TaskComponent {
   @Input({required: true}) task!: Task
-  @Output() complete = new EventEmitter<string>();
+  
+  constructor(private taskService: TaskService){
+
+  }
 
   onCompleteTask() {
-    this.complete.emit(this.task.id)
+    this.taskService.removeTask(this.task.id);
   }
 }
